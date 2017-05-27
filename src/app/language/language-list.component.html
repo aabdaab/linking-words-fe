@@ -1,0 +1,66 @@
+<nav class="navbar navbar-default navbar-fixed-top linking-words__navbar no-margin-bottom">
+  <div class="container">
+    <div class="navbar-header navbar-flex">
+      <div class="linking-words__navbar-title">
+        Linking Words
+      </div>
+      <div class="linking-words__navbar-icons">
+        <div class="btn-group">
+          <img class="clickable" width="25" height="25" [src]="settingsIconPath" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
+          <ul class="dropdown-menu linking-words__dropdown-menu">
+            <ng-container *ngFor="let language of languages">
+              <li><a (click)="changeLanguage(language)">{{language.name}}</a></li>
+            </ng-container>
+            <li>
+              <i data-toggle="modal" data-target=".linking-words__modal" class="fa fa-plus clickable" style="padding: 10px 20px;" aria-hidden="true"></i>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="row">
+  <div class="container">
+    <!-- left column -->
+    <div class="col-md-4 left-column__container">
+      <div class="left-column__tabs">
+        <table class="left-column__table">
+          <tbody>
+            <tr>
+              <ng-container *ngFor="let tab of tabs">
+                <td (click)="tabChanged(tab)" [ngClass]="{'linking-words__tab' : true, 'active-tab' : tab === tabSelected}">
+                  {{tab}}
+                </td>
+              </ng-container>
+            </tr>
+          </tbody>
+        </table>
+
+        <div *ngIf="tabSelected === 'Działy';then sectionsContent"></div>
+        <ng-template #sectionsContent>
+          <section-list [sections]="sections" [language]="languageNotebook"
+              (sectionWords)="setSectionWords($event)"
+              (sectionSelected)="setSelectedSection($event)"
+              (newSectionAdded)="reloadSections($event)">
+            </section-list>
+        </ng-template>
+
+        <div *ngIf="tabSelected === 'Kategorie';then categoriesContent"></div>
+        <ng-template #categoriesContent>
+          <category-list [categories]="categories" [language]="languageNotebook"
+            (categoryWords)="setCategoryWords($event)"
+            (categorySelected)="setSelectedCategory($event)">
+          </category-list>
+        </ng-template>
+
+      </div>
+    </div>
+    <!-- right column -->
+    <div class="col-md-8 right-column__container">
+      <word-list [words]="words" [language]="languageNotebook" [section]="selectedSection" [category]="selectedCategory" (newWordAdded)="reloadSectionWords($event)"></word-list>
+    </div>
+  </div>
+</div>
+<language-add (languageAdded)="reloadLanguages($event)"></language-add>

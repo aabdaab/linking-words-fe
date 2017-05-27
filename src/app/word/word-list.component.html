@@ -1,0 +1,11 @@
+<div class="section-list__container word-list__container">
+  <ng-container *ngFor="let word of words">
+    <word-show [language]="language" [section]="section" [category]="category" [word]="word"></word-show>
+  </ng-container>
+  <p class="section-list__add-item clickable" (click)="openNewWordForm()">
+    <i class="fa fa-plus" aria-hidden="true"></i> Dodaj słówko/wyrażenie
+  </p>
+  <ng-container *ngIf="openFormFlag">
+    <word-add [language]="language" [section]="section" (closeForm)="closeAddWordForm($event)"></word-add>
+  </ng-container>
+</div>

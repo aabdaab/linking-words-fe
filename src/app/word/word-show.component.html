@@ -1,0 +1,25 @@
+<div class="word-list__item">
+  <div class="word-list__key-word">
+    {{word.key}}
+  </div>
+  <div class="translation-list__array">
+    <div class="translation-list__item" *ngFor="let translation of translations">
+      {{translation.name}}
+    </div>
+  </div>
+  <div class="expandable-box">
+    <p class="display-inline clickable" (click)="toggleTranslationForm()">
+      <i class="fa fa-caret-down" aria-hidden="true"></i>
+    </p>
+  </div>
+</div>
+<ng-container *ngIf="openFormFlag">
+  <div class="word-list__add-translations">
+    <form class="form-inline">
+      <input type="text" [(ngModel)]="model.name" name="name" class="form-control mb-2 mr-sm-2 mb-sm-0 linking-words__input" id="inlineFormInput" placeholder="">
+      <button type="submit" class="btn linking-words__button--submit" (click)="addTranslations()">
+        Dodaj tłumaczenia
+      </button>
+    </form>
+  </div>
+</ng-container>

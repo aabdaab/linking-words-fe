@@ -1,0 +1,13 @@
+<div class="section-list__container">
+  <div class="section-list__item clickable" *ngFor="let section of sections">
+    <div (click)="getSectionWords(language, section)">
+      {{section.name}}
+    </div>
+  </div>
+  <p class="section-list__add-item clickable" (click)="openNewSectionForm()">
+    <i class="fa fa-plus" aria-hidden="true"></i> Dodaj Dział
+  </p>
+  <ng-container *ngIf="openFormFlag">
+    <section-add [language]="language" [sectionsID]="sectionsID" (closeForm)="closeAdditionForm($event)"></section-add>
+  </ng-container>
+</div>

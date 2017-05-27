@@ -1,0 +1,7 @@
+<div class="section-list__container">
+  <div class="section-list__item clickable" *ngFor="let category of categories">
+    <div (click)="getCategoryWords(language, category)">
+      {{category.name}}
+    </div>
+  </div>
+</div>
